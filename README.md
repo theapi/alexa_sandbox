@@ -1,7 +1,7 @@
 # Alexa sandbox
 Messing around with Alexa
 
-To install as a node package using the following command from within your Node.js environment:
+To install as a node package using the following command from within the `src` directory of the project you want to build.
 ```bash
 npm install
 ```
