@@ -2,3 +2,6 @@
 HelloWorldIntent hello
 HelloWorldIntent say hello
 HelloWorldIntent say hello world
+GetCupboardIntent cupboard
+GetCupboardIntent temperature
+GetCupboardIntent cupboard temperature
