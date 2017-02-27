@@ -1,6 +1,7 @@
 var Alexa = require('alexa-sdk');
 var request = require("request");
-var APP_ID = 'theapi_hello_world';
+var config = require('./config.json');
+var APP_ID = config.app_id;
 
 exports.handler = function(event, context, callback) {
     var alexa = Alexa.handler(event, context);
@@ -20,8 +21,7 @@ var handlers = {
 
     'GetCupboardIntent': function () {
         var that = this;
-        var speechOutput = 'Request test';
-        request.get(url(), function(error, response, body) {
+        request.get(config.url, function(error, response, body) {
             console.log(body);
             var d = JSON.parse(body);
             if (d.temperature) {
@@ -32,7 +32,3 @@ var handlers = {
         });
     }
  };
-
- function url() {
-     return "http://io.theapi.co.uk/cupboard/v0.1/index.json";
- }
