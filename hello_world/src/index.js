@@ -24,8 +24,8 @@ var handlers = {
         request.get(config.url, function(error, response, body) {
             console.log(body);
             var d = JSON.parse(body);
-            if (d.temperature) {
-                 that.emit(':tell', "The temperature in the cupboard is " + d.temperature);
+            if (d.response.outputSpeech.type = "PlainText") {
+                 that.emit(':tell', d.response.outputSpeech.text);
              } else {
                  that.emit(':tell', "Sorry, I could not get the temperature in the cupboard");
              }
