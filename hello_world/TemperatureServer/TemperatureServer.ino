@@ -4,11 +4,6 @@
    Install the library from https://github.com/Links2004/arduinoWebSockets
 */
 
-// Set the WiFi access details
-#define WIFI_SSID "xxxxxx"
-#define WIFI_PASS "xxxxxx"
-
-
 #include <Arduino.h>
 
 #include <ESP8266WiFi.h>
@@ -31,9 +26,6 @@ Denbit denbit;
 const int ledRed =  15;
 const int ledGreen =  14;
 const int ledBlue =  10;
-
-const char* ssid = WIFI_SSID;
-const char* password = WIFI_PASS;
 
 // Generally, you should use "unsigned long" for variables that hold time
 // The value will quickly become too large for an int to store
@@ -70,17 +62,12 @@ void setup() {
   Serial.begin(115200);
   //Serial.setDebugOutput(true);
 
-  WiFi.begin(ssid, password);
-  Serial.println("Connecting");
+  // Start the Over The Air programming.
+  denbit.OTAsetup();
 
-  // Wait for connection
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
   Serial.println("");
   Serial.print("Connected to ");
-  Serial.println(ssid);
+  Serial.println(WiFi.SSID());
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 
@@ -96,9 +83,8 @@ void setup() {
 
   server.on("/data.json", [](){
     String message = "{";
-    message += "\"temperature\": \"";
+    message += "\"temperature\": ";
     message += String(temperature, 1);
-    message += " degrees C\"";
     message += "}\n";
     server.send(200, "application/json", message);
   });
@@ -123,6 +109,8 @@ double thermistor(int raw_adc) {
 void loop() {
   webSocket.loop();
   server.handleClient();
+  // Check for any Over The Air updates.
+  denbit.OTAhandle();
 
   unsigned long currentMillis = millis();
   if (currentMillis - previousMillis >= interval) {
