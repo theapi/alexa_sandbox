@@ -21,8 +21,13 @@ var handlers = {
 
     'GetCupboardIntent': function () {
         var that = this;
-        request.get(config.url, function(error, response, body) {
-            console.log(body);
+        var options = {
+          url: config.url,
+          rejectUnauthorized: false,
+          agent: false
+        };
+        request.get(options, function(error, response, body) {
+            //console.log(body);
             var d = JSON.parse(body);
             if (d.response.outputSpeech.type = "PlainText") {
                  that.emit(':tell', d.response.outputSpeech.text);
