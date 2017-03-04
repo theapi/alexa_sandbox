@@ -24,7 +24,10 @@ var handlers = {
         var options = {
           url: config.url,
           rejectUnauthorized: false,
-          agent: false
+          agent: false,
+          headers: {
+            'Authorization' : 'Bearer ' + config.token
+          }
         };
         request.get(options, function(error, response, body) {
             //console.log(body);

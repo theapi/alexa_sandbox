@@ -1,4 +1,5 @@
 {
     "app_id" : "my_app_id",
-    "url" : "https://www.example.com/alexa/index.json"
+    "url" : "https://www.example.com/alexa/index.json",
+    "token" : "hello_world"
 }
