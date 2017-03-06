@@ -120,7 +120,7 @@ var guessModeHandlers = Alexa.CreateStateHandler(states.GUESSMODE, {
     },
     "AMAZON.StopIntent": function() {
         console.log("STOPINTENT");
-      this.emit(':tell', "Goodbye!");
+      this.emit(':tell', '<audio src="' + config.audio.chess + '"/>');
     },
     "AMAZON.CancelIntent": function() {
         console.log("CANCELINTENT");
