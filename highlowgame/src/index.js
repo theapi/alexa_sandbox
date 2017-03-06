@@ -33,8 +33,9 @@ var newSessionHandlers = {
         this.handler.state = states.STARTMODE;
         // With an audio tag
         // see http://www.apcp.biz/single-post/2016/02/05/Adding-MP3-Sound-to-Your-Alexa-Skill
+        // ffmpeg -y -i input.mp3 -ar 16000 -ab 48k -codec:a libmp3lame -ac 1 output.mp3
         this.emit(':ask', 'Welcome to the silly number game. You have played '
-            + this.attributes['gamesPlayed'].toString() + ' times. <audio src="' + config.audio.play_a_game + '"/>, Would you like to play?',
+            + this.attributes['gamesPlayed'].toString() + ' times. <audio src="' + config.audio.play_a_game + '"/>,',
             'Say yes to start the game or no to quit.');
     },
     "AMAZON.StopIntent": function() {
@@ -60,13 +61,14 @@ var startGameHandlers = Alexa.CreateStateHandler(states.STARTMODE, {
         this.emit(':ask', message, message);
     },
     'AMAZON.YesIntent': function() {
-        this.attributes["guessNumber"] = Math.floor(Math.random() * 100);
+        //this.attributes["guessNumber"] = Math.floor(Math.random() * 100);
+        this.attributes["guessNumber"] = 42;
         this.handler.state = states.GUESSMODE;
-        this.emit(':ask', 'Great! ' + 'Try saying a number to start the game.', 'Try saying a number.');
+        this.emit(':ask', '<audio src="' + config.audio.excellent + '"/> ' + 'Try saying a number to start the game.', 'Try saying a number.');
     },
     'AMAZON.NoIntent': function() {
         console.log("NOINTENT");
-        this.emit(':tell', 'Ok, see you next time!');
+        this.emit(':tell', '<audio src="' + config.audio.fine + '"/>');
     },
     "AMAZON.StopIntent": function() {
       console.log("STOPINTENT");
@@ -105,7 +107,7 @@ var guessModeHandlers = Alexa.CreateStateHandler(states.GUESSMODE, {
         } else if (guessNum === targetNum){
             // With a callback, use the arrow function to preserve the correct 'this' context
             this.emit('JustRight', () => {
-                this.emit(':ask', guessNum.toString() + 'is correct! Would you like to play a new game?',
+                this.emit(':ask', guessNum.toString() + 'is correct! <audio src="' + config.audio.strange_game + '"/> Would you like to play a new game?',
                 'Say yes to start a new game, or no to end the game.');
         })
         } else {
@@ -113,8 +115,8 @@ var guessModeHandlers = Alexa.CreateStateHandler(states.GUESSMODE, {
         }
     },
     'AMAZON.HelpIntent': function() {
-        this.emit(':ask', 'I am thinking of a number between zero and one hundred, try to guess and I will tell you' +
-            ' if it is higher or lower.', 'Try saying a number.');
+        this.emit(':ask', '<audio src="' + config.audio.microchips + '"/>' +
+            ' , guess a number.', 'Try saying a number.');
     },
     "AMAZON.StopIntent": function() {
         console.log("STOPINTENT");

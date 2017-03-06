@@ -1,6 +1,10 @@
 {
     "app_id" : "my_app_id",
     "audio": {
-      "play_a_game": "https://s3.amazonaws.com/sounds226/boom.mp3"
+      "play_a_game": "https://s3.amazonaws.com/sounds226/boom.mp3",
+      "excellent": "https://s3.amazonaws.com/sounds226/boom.mp3",
+      "strange_game": "https://s3.amazonaws.com/sounds226/boom.mp3",
+      "fine": "https://s3.amazonaws.com/sounds226/boom.mp3",
+      "microchips": "https://s3.amazonaws.com/sounds226/boom.mp3"
     }
 }
