@@ -31,8 +31,10 @@ var newSessionHandlers = {
             this.attributes['gamesPlayed'] = 0;
         }
         this.handler.state = states.STARTMODE;
-        this.emit(':ask', 'Welcome to High Low guessing game. You have played '
-            + this.attributes['gamesPlayed'].toString() + ' times. would you like to play?',
+        // With an audio tag
+        // see http://www.apcp.biz/single-post/2016/02/05/Adding-MP3-Sound-to-Your-Alexa-Skill
+        this.emit(':ask', 'Welcome to the silly number game. You have played '
+            + this.attributes['gamesPlayed'].toString() + ' times. <audio src="' + config.audio.play_a_game + '"/>, Would you like to play?',
             'Say yes to start the game or no to quit.');
     },
     "AMAZON.StopIntent": function() {

@@ -1,3 +1,6 @@
 {
-    "app_id" : "my_app_id"
+    "app_id" : "my_app_id",
+    "audio": {
+      "play_a_game": "https://s3.amazonaws.com/sounds226/boom.mp3"
+    }
 }
